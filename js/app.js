@@ -27,6 +27,17 @@ const App = () => {
         fetchTasks();
     };
 
+    const handleFinishTask = (task) => {
+        const updatedTasks = tasks.map((t) => {
+            if (t.id === task.id) {
+                return {...t, status: 'closed'};
+            }
+            return t;
+        });
+        setTasks(updatedTasks);
+    };
+
+
     return (
         <>
             <div>
@@ -38,7 +49,7 @@ const App = () => {
                 {tasks.length > 0 ? (
                     <ul>
                         {tasks.map((task) => (
-                            <Task key={task.id} task={task}/>
+                            <Task key={task.id} task={task} onFinish={handleFinishTask}/>
                         ))}
                     </ul>
                 ) : (
