@@ -3,8 +3,9 @@ import {getOperations} from "../api/getOperations";
 import Operations from "./Operations";
 import {API_KEY, API_URL} from "../api/constants";
 import {finishTask} from "../api/finishTask";
+import {deleteTask} from "../api/deleteTask";
 
-const Task = ({task, onFinish}) => {
+const Task = ({task, onFinish, onDelete}) => {
     const [operations, setOperations] = useState([]);
 
 
@@ -18,7 +19,7 @@ const Task = ({task, onFinish}) => {
         // Logika do dodawania operacji
     };
 
-    const handleFinish = async (e) => {
+    const handleFinish = () => {
         finishTask(task.id, {
                 title: task.title,
                 description: task.description,
@@ -30,8 +31,8 @@ const Task = ({task, onFinish}) => {
     };
 
 
-    const handleDeleteTask = () => {
-        // Logika do usuwania zadania
+    const handleDelete = () => {
+        deleteTask(task.id, onDelete);
     };
 
     return (
@@ -71,7 +72,7 @@ const Task = ({task, onFinish}) => {
                     {operations.length === 0 && (
                         <button
                             className="btn btn-outline-danger btn-sm ml-2"
-                            onClick={handleDeleteTask}>
+                            onClick={handleDelete}>
                             <i className="fas fa-trash"/>
                         </button>
                     )}
