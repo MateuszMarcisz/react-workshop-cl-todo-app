@@ -1,6 +1,52 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {API_KEY, API_URL} from "../api/constants";
 
-const Operation = ({description, onRemoveOperation, status, timeSpent}) => {
+
+const Operation = ({description, onRemoveOperation, onUpdateTime, status, timeSpent, id}) => {
+    const [addTime, setAddTime] = useState(false);
+    const [newTime, setNewTime] = useState(0);
+
+    const handleAddTimeClick = () => {
+        setAddTime(true);
+    };
+
+    const handleDeclineTime = () => {
+        setAddTime(false);
+    };
+
+    const handleTimeUpdate = (e) => {
+        setNewTime(parseInt(e.target.value));
+    };
+
+    const handleTimeSubmission = async (e) => {
+        e.preventDefault();
+
+        const updatedOperation = {
+            description,
+            timeSpent: timeSpent + newTime
+        };
+        try {
+            const response = await fetch(`${API_URL}/operations/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': API_KEY,
+                },
+                body: JSON.stringify(updatedOperation),
+            });
+
+            if (response.ok) {
+                setAddTime(false);
+                onUpdateTime(id, newTime);
+            } else {
+                console.error("Failed to update time", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error updating time:", error);
+        }
+
+    }
+
     return (
         <li
             className="list-group-item d-flex justify-content-between align-items-center"
@@ -10,46 +56,57 @@ const Operation = ({description, onRemoveOperation, status, timeSpent}) => {
                 {timeSpent > 0 &&
                     <span className="badge badge-success badge-pill ml-2">
                                 {Math.floor(timeSpent / 60)}h {timeSpent % 60}m
-                                </span>
+                    </span>
                 }
             </div>
 
-            {/*{false && <form>*/}
-            {/*    <div*/}
-            {/*        className="input-group input-group-sm">*/}
-            {/*        <input type="number"*/}
-            {/*               className="form-control"*/}
-            {/*               placeholder="Spent time in minutes"*/}
-            {/*               style={{width: '12rem'}}/>*/}
-            {/*        <div className="input-group-append">*/}
-            {/*            <button className="btn btn-outline-success">*/}
-            {/*                <i className="fas fa-save"/>*/}
-            {/*            </button>*/}
-            {/*            <button className="btn btn-outline-dark">*/}
-            {/*                <i className="fas fa-times false"/>*/}
-            {/*            </button>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</form>}*/}
-
             <div>
+                {addTime &&
+                    <form
+                        onSubmit={handleTimeSubmission}
+                    >
+                        <div className="input-group input-group-sm">
+                            <input type="number"
+                                   className="form-control"
+                                   placeholder="Spent time in minutes"
+                                   style={{width: '12rem'}}
+                                   value={newTime}
+                                   onChange={handleTimeUpdate}
+                            />
+                            <div className="input-group-append">
+                                <button
+                                    className="btn btn-outline-success"
+                                >
+                                    <i className="fas fa-save"/>
+                                </button>
+                                <button
+                                    className="btn btn-outline-dark"
+                                    onClick={handleDeclineTime}
+                                >
+                                    <i className="fas fa-times false"/>
+                                </button>
+                            </div>
+                        </div>
+                    </form>}
+
 
                 {status === 'open' &&
-                    <button
-                        className="btn btn-outline-success btn-sm mr-2"
-
-                    >
-                        Add time
-                        <i className="fas fa-clock ml-1"></i>
-                    </button>}
-
-
-                <button
-                    className="btn btn-outline-danger btn-sm"
-
-                >
-                    <i className="fas fa-trash"></i>
-                </button>
+                    !addTime &&
+                    <>
+                        <button
+                            className="btn btn-outline-success btn-sm mr-2"
+                            onClick={handleAddTimeClick}
+                        >
+                            Add time
+                            <i className="fas fa-clock ml-1"></i>
+                        </button>
+                        <button
+                            className="btn btn-outline-danger btn-sm"
+                        >
+                            <i className="fas fa-trash"></i>
+                        </button>
+                    </>
+                }
 
             </div>
 

@@ -2,18 +2,29 @@ import React, {useState} from 'react';
 import {API_KEY, API_URL} from "../api/constants";
 import {getOperations} from "../api/getOperations";
 import Operation from "./Operation";
+import operation from "./Operation";
 
 const Operations = ({operations, setOperations, taskId, status, form, setForm}) => {
     const [description, setDescription] = useState('');
-    const [timeSpent, setTimeSpent] = useState(0);
+
 
     const handleDeleteOperation = () => {
-    //     delete logic
-    }
+        //     delete logic
+    };
 
     const handleDescription = (e) => {
         setDescription(e.target.value);
-    }
+    };
+
+    const handleUpdateTime = (id, newTime) => {
+        const updatedOperations = operations.map((operation) => {
+            if (operation.id === id) {
+                return {...operation, timeSpent: operation.timeSpent + newTime};
+            }
+            return operation;
+        });
+        setOperations(updatedOperations);
+    };
 
 
     const handleOperationSubmission = async (e) => {
@@ -39,7 +50,7 @@ const Operations = ({operations, setOperations, taskId, status, form, setForm}) 
                 setDescription('');
                 setForm(false);
 
-                getOperations(taskId, (operationsData)=> {
+                getOperations(taskId, (operationsData) => {
                     setOperations(operationsData);
                 });
 
@@ -78,8 +89,10 @@ const Operations = ({operations, setOperations, taskId, status, form, setForm}) 
                     {operations.map((operation) => (
                         <Operation
                             key={operation.id}
+                            id={operation.id}
                             description={operation.description}
                             onRemoveOperation={handleDeleteOperation}
+                            onUpdateTime={handleUpdateTime}
                             timeSpent={operation.timeSpent}
                             status={status}
                         />
