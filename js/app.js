@@ -56,7 +56,12 @@ const App = () => {
                 {tasks.length > 0 ? (
                     <ul>
                         {tasks.map((task) => (
-                            <Task key={task.id} task={task} onFinish={handleFinishTask} onDelete={handleDeleteTask}/>
+                            <Task
+                                key={task.id}
+                                task={task}
+                                onFinish={handleFinishTask}
+                                onDelete={handleDeleteTask}
+                            />
                         ))}
                     </ul>
                 ) : (

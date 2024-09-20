@@ -7,6 +7,7 @@ import {deleteTask} from "../api/deleteTask";
 
 const Task = ({task, onFinish, onDelete}) => {
     const [operations, setOperations] = useState([]);
+    const [form, setForm] = useState(false);
 
 
     useEffect(() => {
@@ -15,8 +16,8 @@ const Task = ({task, onFinish, onDelete}) => {
         });
     }, [task.id]);
 
-    const handleAddOperation = () => {
-        // Logika do dodawania operacji
+    const handleClickAddOperation = () => {
+        setForm(true);
     };
 
     const handleFinish = () => {
@@ -55,7 +56,7 @@ const Task = ({task, onFinish, onDelete}) => {
                         <>
                             <button
                                 className="btn btn-info btn-sm mr-2"
-                                onClick={handleAddOperation}
+                                onClick={handleClickAddOperation}
                             >
                                 Add operation
                                 <i className="fas fa-plus-circle ml-1"/>
@@ -79,7 +80,14 @@ const Task = ({task, onFinish, onDelete}) => {
                 </div>
             </div>
 
-            <Operations operations={operations}/>
+            <Operations
+                operations={operations}
+                taskId={task.id}
+                form={form}
+                setForm={setForm}
+                setOperations={setOperations}
+                status={task.status}
+            />
 
         </section>
     );
