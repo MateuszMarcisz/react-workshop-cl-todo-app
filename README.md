@@ -1,28 +1,41 @@
-![Coders-Lab-1920px-no-background](https://user-images.githubusercontent.com/30623667/104709387-2b7ac180-571f-11eb-9b94-517aa6d501c9.png)
+<h1 align="center"><strong>ToDo app</strong></h1>
 
-# Kilka ważnych informacji
+## Description
 
-Przed przystąpieniem do rozwiązywania zadań przeczytaj poniższe wskazówki
+This simple app was done as part of a React course. It allows you to create new tasks and add operations to them.
+You can also track the time spent on each operation. It supports full CRUD (Create, Read, Update, Delete) functionality.
 
-## Jak zacząć?
-
-1. Stwórz [*fork*](https://guides.github.com/activities/forking/) repozytorium z zadaniami.
-2. Sklonuj fork repozytorium (stworzony w punkcie 1) na swój komputer. Użyj do tego komendy `git clone adres_repozytorium`
-Adres możesz znaleźć na stronie forka repozytorium po naciśnięciu w guzik "Clone or download".
-3. Rozwiąż zadania i skomituj zmiany do swojego repozytorium. Użyj do tego komend `git add nazwa_pliku`.
-Jeżeli chcesz dodać wszystkie zmienione pliki użyj `git add .` 
-Pamiętaj że kropka na końcu jest ważna!
-Następnie skommituj zmiany komendą `git commit -m "nazwa_commita"`
-4. Wypchnij zmiany do swojego repozytorium na GitHubie.  Użyj do tego komendy `git push origin main`
-5. Stwórz [*pull request*](https://help.github.com/articles/creating-a-pull-request) do oryginalnego repozytorium, gdy skończysz wszystkie zadania.
-
-Poszczególne zadania rozwiązuj w odpowiednich plikach.
-
-### Poszczególne zadania rozwiązuj w odpowiednich plikach.
-
-**Repozytorium z ćwiczeniami zostanie usunięte 2 tygodnie po zakończeniu kursu. Spowoduje to też usunięcie wszystkich forków, które są zrobione z tego repozytorium.**
+## Backend
+The backend API is provided by CodersLab. You can generate your own key here: [API key](https://todo-api.coderslab.pl/apikey/create)
 
 
-# Warsztat
+## Frontend
 
-Napisz aplikację `Todo` wraz z `TimeTrackerem`. Pełen opis zadania znajduje się w artykułach do tego warsztatu.
+### Tech Stack:
+- **Framework/Library:** React
+- **Language:** JS (ES6+), HTML (JSX), CSS
+- **Other**: Bootstrap, Font Awesome
+
+
+## Setup
+
+1. Clone the repository.
+2. Run the command `npm install` to install dependencies.
+3. Run the command  `npm start` to start frontend part and have fun.
+
+
+## Visualisation
+
+
+![ToDo app Screenshot](src/images/ToDoExample.png)
+
+
+
+## License
+You are free to use, modify, and distribute this application for your private, personal use.
+
+## Author
+- **email**: mateusz.marciszm@gmail.com
+- **github**: [MateuszMarcisz](https://github.com/MateuszMarcisz)
+- **CodeWars**: [T0dl3r](https://www.codewars.com/users/T0dl3r)
+- **GS**: [GoogleScholar](https://scholar.google.com/citations?user=QW3tlewAAAAJ&hl=en)
