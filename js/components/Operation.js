@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {API_KEY, API_URL} from "../api/constants";
+import {deleteOperation} from "../api/deleteOperation";
 
 
 const Operation = ({description, onRemoveOperation, onUpdateTime, status, timeSpent, id}) => {
@@ -16,6 +17,10 @@ const Operation = ({description, onRemoveOperation, onUpdateTime, status, timeSp
 
     const handleTimeUpdate = (e) => {
         setNewTime(parseInt(e.target.value));
+    };
+
+    const handleDelete = () => {
+        deleteOperation(id, onRemoveOperation);
     };
 
     const handleTimeSubmission = async (e) => {
@@ -38,6 +43,7 @@ const Operation = ({description, onRemoveOperation, onUpdateTime, status, timeSp
             if (response.ok) {
                 setAddTime(false);
                 onUpdateTime(id, newTime);
+                setNewTime(0);
             } else {
                 console.error("Failed to update time", response.statusText);
             }
@@ -89,10 +95,10 @@ const Operation = ({description, onRemoveOperation, onUpdateTime, status, timeSp
                         </div>
                     </form>}
 
+                <>
+                    {status === 'open' &&
+                        !addTime &&
 
-                {status === 'open' &&
-                    !addTime &&
-                    <>
                         <button
                             className="btn btn-outline-success btn-sm mr-2"
                             onClick={handleAddTimeClick}
@@ -100,14 +106,17 @@ const Operation = ({description, onRemoveOperation, onUpdateTime, status, timeSp
                             Add time
                             <i className="fas fa-clock ml-1"></i>
                         </button>
+                    }
+                    {!addTime &&
                         <button
                             className="btn btn-outline-danger btn-sm"
+                            onClick={handleDelete}
                         >
                             <i className="fas fa-trash"></i>
-                        </button>
-                    </>
-                }
+                        </button>}
 
+
+                </>
             </div>
 
         </li>

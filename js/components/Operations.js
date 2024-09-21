@@ -2,14 +2,18 @@ import React, {useState} from 'react';
 import {API_KEY, API_URL} from "../api/constants";
 import {getOperations} from "../api/getOperations";
 import Operation from "./Operation";
-import operation from "./Operation";
+
 
 const Operations = ({operations, setOperations, taskId, status, form, setForm}) => {
     const [description, setDescription] = useState('');
 
 
-    const handleDeleteOperation = () => {
-        //     delete logic
+    const handleDeleteOperation = (id) => {
+        const updatedOperations = operations.filter((operation) => operation.id !== id);
+        setOperations(updatedOperations);
+        getOperations(taskId, (operationsData) => {
+            setOperations(operationsData);
+        });
     };
 
     const handleDescription = (e) => {

@@ -2,12 +2,12 @@ import {API_KEY, API_URL} from "./constants";
 
 /**
  * Delete a task
- * @param {number} taskId - ID of the task to delete
+ * @param {number} id - ID of the operation to delete
  * @param {function} successCallback - Function to call on success
  */
-export const deleteTask = async (taskId, successCallback) => {
+export const deleteOperation = async (id, successCallback) => {
     try {
-        const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+        const response = await fetch(`${API_URL}/operations/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -17,9 +17,9 @@ export const deleteTask = async (taskId, successCallback) => {
         if (response.ok) {
             successCallback();
         } else {
-            console.error("Failed to delete task:", response.statusText);
+            console.error("Failed to delete operation:", response.statusText);
         }
     } catch (error) {
-        console.error("Error deleting task:", error);
+        console.error("Error deleting operation:", error);
     }
 };
